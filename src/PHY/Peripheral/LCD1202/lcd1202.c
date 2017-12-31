@@ -1,0 +1,397 @@
+/*==================================================================
+ *  Author  : YAMA team
+ *  email   : yamateamhaui@gmail.com
+ *  address : Ha Noi University
+ *  ( Nhon - Bac Tu liem - Ha Noi - Viet Nam)
+ *==================================================================*/
+
+/*==================================================================
+ * In this file:
+ *==================================================================*/
+
+#include "lcd1202.h"
+#include "lcd_font.h"
+#include "lcd_fontresource.h"
+#include "string.h"
+
+__UINT8 gLcd1202Ram[LCD_1202_BUFFER_SIZE];
+__UINT32 gLcd1202CurrentOffset;
+
+#if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
+
+/**
+ *
+ */
+
+void LCD1202_delay(volatile __UINT32 timeCount)
+{
+
+	while (timeCount != 0)
+	{
+		timeCount--;
+	}
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_configurePin(GPIO_InitTypeDef *p_pinConfig, __UINT32 pinNumber)
+{
+
+	RCC_AHB1PeriphClockCmd(LCD_1202_RCC, ENABLE);
+
+	(*p_pinConfig).GPIO_Pin		= 	pinNumber;
+	(*p_pinConfig).GPIO_Mode	=	GPIO_Mode_OUT;
+	(*p_pinConfig).GPIO_OType	=	GPIO_OType_PP;
+	(*p_pinConfig).GPIO_PuPd	=	GPIO_PuPd_NOPULL;
+	(*p_pinConfig).GPIO_Speed	=	GPIO_Speed_100MHz;
+
+	GPIO_Init(LCD_1202_COM, p_pinConfig);
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_hightPowerPin(__UINT32 pinSetup)
+{
+	GPIO_SetBits(LCD_1202_COM, pinSetup);
+}
+
+/**
+ *
+ */
+
+void LCD1202_lowerPowerPin(__UINT32 pinSetup)
+{
+	GPIO_ResetBits(LCD_1202_COM, pinSetup);
+}
+
+/**
+ *
+ */
+
+void LCD1202_settingPinConnection(void)
+{
+
+	GPIO_InitTypeDef pinConfig;
+
+	LCD1202_configurePin(&pinConfig, LCD_1202_VCC);
+	LCD1202_configurePin(&pinConfig, LCD_1202_RST);
+	LCD1202_configurePin(&pinConfig, LCD_1202_CS);
+	LCD1202_configurePin(&pinConfig, LCD_1202_GND);
+	LCD1202_configurePin(&pinConfig, LCD_1202_SDA);
+	LCD1202_configurePin(&pinConfig, LCD_1202_SCL);
+	LCD1202_configurePin(&pinConfig, LCD_1202_LIG1);
+	LCD1202_configurePin(&pinConfig, LCD_1202_LIG2);
+	//
+	// cap nguan--Pow ON
+	GPIO_SetBits(LCD_1202_COM, LCD_1202_VCC);
+	GPIO_ResetBits(LCD_1202_COM, LCD_1202_GND);
+	GPIO_ResetBits(LCD_1202_COM, LCD_1202_LIG1);
+	GPIO_SetBits(LCD_1202_COM, LCD_1202_LIG2);
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_transficData(__E_Lcd_Mode_Send modeSend, __UINT8 data)
+{
+
+	__UINT32 i;
+
+	if (modeSend == EMS_DATA)
+	{
+		LCD1202_hightPowerPin(LCD_1202_SDA);
+	}
+	else
+	{
+		LCD1202_lowerPowerPin(LCD_1202_SDA);
+	}
+
+	LCD1202_lowerPowerPin(LCD_1202_SCL);
+	LCD1202_hightPowerPin(LCD_1202_SCL);
+
+	for (i = 0; i < 8; i++)
+	{
+		if ((data<<i) & 0x80)
+		{
+			LCD1202_hightPowerPin(LCD_1202_SDA);
+		}
+		else
+		{
+			LCD1202_lowerPowerPin(LCD_1202_SDA);
+		}
+
+		LCD1202_lowerPowerPin(LCD_1202_SCL);
+		LCD1202_hightPowerPin(LCD_1202_SCL);
+
+//		if (modeSend == EMS_COMMAND)
+//		{
+//			LCD1202_delay(200);
+//		}
+	}
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_sendData(__UINT8 data)
+{
+
+	LCD1202_lowerPowerPin(LCD_1202_CS);
+	LCD1202_transficData(EMS_DATA, data);
+	LCD1202_hightPowerPin(LCD_1202_CS);
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_sendCommand(__UINT8 command)
+{
+
+	LCD1202_lowerPowerPin(LCD_1202_CS);
+	LCD1202_transficData(EMS_COMMAND, command);
+	LCD1202_hightPowerPin(LCD_1202_CS);
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_initialize(void)
+{
+
+	LCD1202_settingPinConnection();
+
+	LCD1202_hightPowerPin(LCD_1202_RST);								//  set RST + CE + DC + SCK + DIN
+	LCD1202_hightPowerPin(LCD_1202_CS);
+	LCD1202_hightPowerPin(LCD_1202_SCL);
+	LCD1202_hightPowerPin(LCD_1202_SDA);
+
+	//1. reset LCD
+	LCD1202_lowerPowerPin(LCD_1202_CS);
+	LCD1202_lowerPowerPin(LCD_1202_RST);
+	LCD1202_hightPowerPin(LCD_1202_RST);
+	//
+	LCD1202_sendCommand(LCD_1202_VO_VOLTAGE_RANGE_SET_0);
+	LCD1202_sendCommand(0x90); //LCD_1202_ELECTRONIC_VOLUME_15_step
+	LCD1202_sendCommand(LCD_1202_DISPLAY_ALL_POINT_OFF);
+	LCD1202_sendCommand(LCD_1202_POWER_CONTROL_SET_ON);
+	//
+	LCD1202_sendCommand(LCD_1202_PAGE_ADDRESS_SET_0);
+	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_UPPER_DEFAULT);
+	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_LOWER_DEFAULT);
+	//
+	LCD1202_sendCommand(LCD_1202_DISPLAY_ON);
+	//
+	LCD1202_sendCommand(0xA7);
+	LCD1202_sendCommand(0xA6);
+
+	LCD1202_clearScreen();
+
+	LF_setFontIsUse(gFontFullYama);
+
+	__LEAVE__();
+}
+
+/**
+ *
+ */
+
+void LCD1202_clearScreen(void)
+{
+
+	__UINT32 i;
+
+	for (i = 0; i < LCD_1202_BUFFER_SIZE; i++)
+	{
+		gLcd1202Ram[i] = 0x00;
+	}
+
+	gLcd1202CurrentOffset = 0;
+
+	//
+	LCD1202_sendCommand(LCD_1202_PAGE_ADDRESS_SET_0);
+	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_UPPER_DEFAULT);
+	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_LOWER_DEFAULT);
+
+	LCD1202_flush();
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_viewImageBitmap(__UINT8 *p_img)
+{
+
+	__INT32 index;
+
+	for (index = 0; index < LCD_1202_BUFFER_SIZE; index++)
+	{
+		LCD1202_sendData(p_img[index]);
+	}
+
+}
+
+
+/**
+ *
+ */
+
+void LCD1202_flush(void)
+{
+
+	__INT32 index;
+
+	LCD1202_sendCommand(LCD_1202_PAGE_ADDRESS_SET_0);
+	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_UPPER_DEFAULT);
+	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_LOWER_DEFAULT);
+
+	for (index = 0; index < LCD_1202_BUFFER_SIZE; index++)
+	{
+		LCD1202_sendData(gLcd1202Ram[index]);
+	}
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_turnOffLedBackground(__INT32 status)
+{
+
+	if (status)
+	{
+		LCD1202_lowerPowerPin(LCD_1202_LIG2);
+	}
+	else
+	{
+		LCD1202_hightPowerPin(LCD_1202_LIG2);
+	}
+
+}
+
+/**
+ *
+ */
+
+void LCD1202_printText(const char *str, __UINT32 *p_position)
+{
+	__UINT32 length;
+	__UINT32 index;
+
+	length = strlen(str);
+
+	for (index = 0; index < length; index++)
+	{
+		if ((index % (LCD_1202_SCREEN_WIDTH / gCurrentFont.charWidth ) ) == 0 && index != 0)
+		{
+			LCD1202_endLine();
+		}
+
+		LF_printCharToLcdRam(str[index], p_position);
+	}
+}
+
+/**
+ *
+ */
+
+void LCD1202_printNumberInterger(__INT64 numberPrint,__UINT32  *p_position)
+{
+	__UINT8 buffer[20];
+	__INT32 currentIndexBuffer = 0;
+	__INT32 mumberDigit = 0;
+	__INT64 mask = 1;
+	__INT32 i;
+
+	if (numberPrint == 0)
+	{
+		LF_printCharToLcdRam('0', p_position);
+		return;
+	}
+
+	if (numberPrint < 0)
+	{
+		numberPrint = numberPrint * -1;
+
+		buffer[currentIndexBuffer] = '-';
+		currentIndexBuffer++;
+	}
+
+	while (mask <= numberPrint)
+	{
+		mask *= 10;
+		mumberDigit++;
+	}
+
+	mask /= 10;
+
+	while (mumberDigit > 0)
+	{
+		buffer[currentIndexBuffer] = (__UINT8)((numberPrint / mask) + 48);
+		currentIndexBuffer++;
+
+		numberPrint %= mask;
+		mask /= 10;
+		mumberDigit--;
+	}
+
+	for(i = 0; i < currentIndexBuffer; i++)
+	{
+		LF_printCharToLcdRam(buffer[i], p_position);
+	}
+
+//	LCD1202_Flush();
+}
+
+/**
+ *
+ */
+
+void LCD1202_endLine(void)
+{
+	__INT32 currentLine;
+	__INT32 i;
+
+	currentLine = (__INT32)(gLcd1202CurrentOffset / LCD_1202_SCREEN_WIDTH);
+
+	if (currentLine == (LCD_1202_TOTAL_LINE_TEXT))
+	{
+		for ( i = 0; i < LCD_1202_SCREEN_WIDTH; i++)
+		{
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_0 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_1 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_1 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_2 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_2 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_3 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_3 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_4 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_4 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_5 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_5 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_6 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_6 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_7 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_7 + i] = gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_8 + i];
+			gLcd1202Ram[LCD_1202_ADDRESS_LINE_TEXT_8 + i] = 0x00;
+		}
+
+		gLcd1202CurrentOffset = LCD_1202_ADDRESS_LINE_TEXT_8;
+	}
+	else
+	{
+		gLcd1202CurrentOffset = (currentLine + 1) * LCD_1202_SCREEN_WIDTH;
+	}
+}
+
+#endif
+//=================================================
