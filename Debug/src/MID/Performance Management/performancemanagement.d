@@ -24,6 +24,7 @@ src/MID/Performance\ Management/performancemanagement.d: \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_tim.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h \
+ /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h \
  /home/yama/eclipse-workspace/WorkStation/src/OS/FreeRTOS_kernel/task.h \
  /home/yama/eclipse-workspace/WorkStation/src/OS/FreeRTOS_kernel/list.h
 
@@ -74,6 +75,8 @@ src/MID/Performance\ Management/performancemanagement.d: \
 /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h:
+
+/home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/OS/FreeRTOS_kernel/task.h:
 

@@ -1,6 +1,6 @@
-src/PHY/Peripheral/EthernetENC28J60/enc208j60.o: \
- ../src/PHY/Peripheral/EthernetENC28J60/enc208j60.c \
- ../src/PHY/Peripheral/EthernetENC28J60/enc208j60.h \
+src/PHY/Peripheral/LCD5110/LCD5110.o: \
+ ../src/PHY/Peripheral/LCD5110/LCD5110.c \
+ ../src/PHY/Peripheral/LCD5110/LCD5110.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/header.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/config.h \
  /home/yama/eclipse-workspace/WorkStation/src/OS/FreeRTOS_kernel/FreeRTOS.h \
@@ -26,7 +26,7 @@ src/PHY/Peripheral/EthernetENC28J60/enc208j60.o: \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h
 
-../src/PHY/Peripheral/EthernetENC28J60/enc208j60.h:
+../src/PHY/Peripheral/LCD5110/LCD5110.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/Configure/header.h:
 

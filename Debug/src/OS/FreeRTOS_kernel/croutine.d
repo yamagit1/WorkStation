@@ -17,6 +17,7 @@ src/OS/FreeRTOS_kernel/croutine.o: ../src/OS/FreeRTOS_kernel/croutine.c \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_tim.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h \
+ /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/MCU/ARM/stm32f4xx/FreeRTOSConfig_stm32f4xx.h \
  ../src/OS/FreeRTOS_kernel/projdefs.h \
  ../src/OS/FreeRTOS_kernel/portable.h \
@@ -61,6 +62,8 @@ src/OS/FreeRTOS_kernel/croutine.o: ../src/OS/FreeRTOS_kernel/croutine.c \
 /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h:
+
+/home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/PHY/MCU/ARM/stm32f4xx/FreeRTOSConfig_stm32f4xx.h:
 

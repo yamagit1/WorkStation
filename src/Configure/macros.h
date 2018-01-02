@@ -14,6 +14,8 @@
 #ifndef __MACROS_H__
 #define __MACROS_H__
 
+#include "lcd1202.h"
+
 #include <header.h>
 //#include"LCD1202.h"
 //#if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
@@ -40,8 +42,23 @@
 
 #if BUILD_TARGET == BUILD_TARGET_DEBUG
 
-#define __ENTER__();			{}
-#define __LEAVE__();			{}
+#define __LOG__(str)  do{ 													\
+							LCD1202_printText(str, &gLcd1202CurrentOffset); \
+							LCD1202_endLine();								\
+							LCD1202_flush();								\
+						}while(0)
+
+#define __ENTER__(func)	do{ 													\
+							LCD1202_printText(func, &gLcd1202CurrentOffset); 	\
+							LCD1202_printText("--", &gLcd1202CurrentOffset); 	\
+							LCD1202_flush();									\
+						}while(0)
+
+#define __LEAVE__()		do{ 												\
+							LCD1202_printText("ok", &gLcd1202CurrentOffset); \
+							LCD1202_endLine();								\
+							LCD1202_flush();								\
+						}while(0)
 
 #else
 

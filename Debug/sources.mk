@@ -29,5 +29,6 @@ src/PHY/MCU/ARM/stm32f4xx \
 src/PHY/Peripheral/DriveLed \
 src/PHY/Peripheral/EthernetENC28J60 \
 src/PHY/Peripheral/LCD1202 \
+src/PHY/Peripheral/LCD5110 \
 src/PHY/Peripheral/ReadTemperature \
 

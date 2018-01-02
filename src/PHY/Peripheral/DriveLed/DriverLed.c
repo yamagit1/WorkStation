@@ -11,7 +11,7 @@ __E_Bollen gLedStatus[4];
 
 void DL_initialize()
 {
-	__ENTER__();
+	__ENTER__("DL_initialize");
 
 	GPIO_InitTypeDef ledConfigure;
 
@@ -53,7 +53,7 @@ void DL_initialize()
 
 void DL_turnOffLedRed(__UINT32 led)
 {
-	__ENTER__();
+	__ENTER__("DL_turnOffLedRed");
 
 	switch(led)
 	{
@@ -91,7 +91,7 @@ void DL_turnOffLedRed(__UINT32 led)
 
 void DL_turnOnLedRed(__UINT32 led)
 {
-	__ENTER__();
+	__ENTER__("DL_turnOnLedRed");
 
 	switch(led)
 	{

@@ -94,6 +94,12 @@ typedef enum
 	eTRUE  = !eFALSE
 }__E_Bollen;
 
+typedef enum
+{
+	eDISABLE = 0,
+	eENABLE = !eDISABLE
+}__E_Status;
+
 #define TRUE			1
 #define FALSE			0
 /*==============================================================================

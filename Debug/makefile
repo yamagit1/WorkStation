@@ -9,6 +9,7 @@ RM := rm -rf
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include src/PHY/Peripheral/ReadTemperature/subdir.mk
+-include src/PHY/Peripheral/LCD5110/subdir.mk
 -include src/PHY/Peripheral/LCD1202/subdir.mk
 -include src/PHY/Peripheral/EthernetENC28J60/subdir.mk
 -include src/PHY/Peripheral/DriveLed/subdir.mk

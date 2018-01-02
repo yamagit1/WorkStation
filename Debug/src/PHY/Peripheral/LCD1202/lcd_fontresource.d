@@ -23,7 +23,8 @@ src/PHY/Peripheral/LCD1202/lcd_fontresource.o: \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_adc.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_tim.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h \
- /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h
+ /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h \
+ /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h
 
 ../src/PHY/Peripheral/LCD1202/lcd_fontresource.h:
 
@@ -72,3 +73,5 @@ src/PHY/Peripheral/LCD1202/lcd_fontresource.o: \
 /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h:
+
+/home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h:
