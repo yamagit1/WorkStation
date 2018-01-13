@@ -3,10 +3,8 @@
 #define __ENC28J60_H
 
 #include "header.h"
-#include "delay.h"
 
-#define disableChip  GPIO_SetBits(GPIOA,GPIO_Pin_2); Delay_us(2);
-#define enableChip   GPIO_ResetBits(GPIOA,GPIO_Pin_2); Delay_us(2);
+
 
 
 // ENC28J60 Control Registers
@@ -246,34 +244,34 @@
 #define        MAX_FRAMELEN        1500        // (note: maximum ethernet frame length would be 1518)
 //#define MAX_FRAMELEN     600
 
-void ENC28J60_SPI1_Configuration(void);
-void ENC28J60_GPIO_Configuration(void);
-unsigned char ENC28J60_SendByte(unsigned char dt);
-uint8_t enc28j60ReadOp(uint8_t op, uint8_t address);
-
 
 // functions
-uint8_t enc28j60ReadOp(uint8_t op, uint8_t address);
-void enc28j60WriteOp(uint8_t op, uint8_t address, uint8_t data);
-void enc28j60ReadBuffer(uint16_t len, uint8_t* data);
-void enc28j60WriteBuffer(uint16_t len, uint8_t* data);
-void enc28j60SetBank(uint8_t address);
-uint8_t enc28j60Read(uint8_t address);
-void enc28j60Write(uint8_t address, uint8_t data);
-void enc28j60PhyWrite(uint8_t address, uint16_t data);
-void enc28j60clkout(uint8_t clk);
-void enc28j60SpiInit(void);
-void enc28j60Init(uint8_t* macaddr);
-void enc28j60PacketSend(uint16_t len, uint8_t* packet);
-uint16_t enc28j60PacketReceive(uint16_t maxlen, uint8_t* packet);
-uint8_t enc28j60getrev(void);
-uint8_t enc28j60hasRxPkt(void);
-uint8_t enc28j60linkup(void);
-void enc28j60EnableBroadcast( void );
-void enc28j60DisableBroadcast( void );
-void enc28j60DisableMulticast( void );
-void enc28j60PowerDown();
-void enc28j60PowerUp();
+__UINT8 ENC28J60_readWithOpcode(__UINT8 op, __UINT8 address);
+void ENC28J60_writeWithOpcode(__UINT8 op, __UINT8 address, __UINT8 data);
+void ENC28J60_powerDown();
+void ENC28J60PowerUp();
+void ENC28J60_readBuffer(__UINT16 len, __UINT8* data);
+__UINT16 ENC28J60_readBufferWord();
+void ENC28J60_writeBuffer(__UINT16 len, __UINT8* data);
+void ENC28J60_setBank(__UINT8 address);
+__UINT8 ENC28J60_readControlRegister(__UINT8 address);
+void ENC28J60_writeControlRegister(__UINT8 address, __UINT8 data);
+void ENC28J60_writeControlRegisterWord(__UINT8 address, __UINT16 data);
+__UINT16 ENC28J60_phyReadH(__UINT8 address);
+void ENC28J60_phyWrite(__UINT8 address, __UINT16 data);
+void ENC28J60_clkout(__UINT8 clk);
+void ENC28J60_init( __UINT8* macaddr );
+__UINT8 ENC28J60_getrev(void);
+void ENC28J60_enableBroadcast( void );
+void ENC28J60_disableBroadcast( void );
+void ENC28J60_enableMulticast( void );
+void ENC28J60_disableMulticast( void );
+__UINT8 ENC28J60_linkup(void);
+void ENC28J60_packetSend(__UINT16 len, __UINT8* packet);
+__UINT16 ENC28J60_packetReceive(__UINT16 maxlen, __UINT8* packet);
+
+
+
 
 #endif /* __ENC28J60_H */
 

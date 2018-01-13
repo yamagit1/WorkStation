@@ -19,6 +19,7 @@ C_DEPS :=
 SUBDIRS := \
 src/MID/ConfigManagement \
 src/MID/Monitor \
+src/MID/NetWork \
 src/MID/Performance\ Management \
 src/MID/PostOffice \
 src/MID/Signal \

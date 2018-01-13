@@ -42,6 +42,9 @@
 
 #if BUILD_TARGET == BUILD_TARGET_DEBUG
 
+#define PRINT_LOG(tofile, lvLog, content) do{								\
+						} while(0)
+
 #define __LOG__(str)  do{ 													\
 							LCD1202_printText(str, &gLcd1202CurrentOffset); \
 							LCD1202_endLine();								\
@@ -61,9 +64,11 @@
 						}while(0)
 
 #else
+#define PRINT_LOG(tofile, lvLog, content) do{								\
+						} while(0)
 
-#define __ENTER__();			{printf(__FILE__, __LINE__, __FUNCTION__)}
-#define __LEAVE__();			{}
+#define __ENTER__(func)		do{}while(0)
+#define __LEAVE__()			do{}while(0)
 
 #endif
 

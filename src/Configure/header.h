@@ -68,6 +68,14 @@
 #define BUILD_TARGET_RELEASE		10000000
 #define BUILD_TARGET_DEBUG			20000000
 
+/*==============================================================================
+ * log level
+ *============================================================================*/
+
+#define LOG_PHY						1
+#define LOG_OS						2
+#define LOG_MID						3
+#define LOG_APP						4
 
 #include<config.h>
 

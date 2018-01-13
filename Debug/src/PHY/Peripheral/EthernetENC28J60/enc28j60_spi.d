@@ -1,6 +1,6 @@
-src/PHY/Peripheral/EthernetENC28J60/enc28j60.o: \
- ../src/PHY/Peripheral/EthernetENC28J60/enc28j60.c \
- ../src/PHY/Peripheral/EthernetENC28J60/enc28j60.h \
+src/PHY/Peripheral/EthernetENC28J60/enc28j60_spi.o: \
+ ../src/PHY/Peripheral/EthernetENC28J60/enc28j60_spi.c \
+ ../src/PHY/Peripheral/EthernetENC28J60/enc28j60_spi.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/header.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/config.h \
  /home/yama/eclipse-workspace/WorkStation/src/OS/FreeRTOS_kernel/FreeRTOS.h \
@@ -25,10 +25,9 @@ src/PHY/Peripheral/EthernetENC28J60/enc28j60.o: \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h \
- ../src/PHY/Peripheral/EthernetENC28J60/enc28j60_spi.h \
  ../src/PHY/Peripheral/EthernetENC28J60/delay.h
 
-../src/PHY/Peripheral/EthernetENC28J60/enc28j60.h:
+../src/PHY/Peripheral/EthernetENC28J60/enc28j60_spi.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/Configure/header.h:
 
@@ -77,7 +76,5 @@ src/PHY/Peripheral/EthernetENC28J60/enc28j60.o: \
 /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h:
-
-../src/PHY/Peripheral/EthernetENC28J60/enc28j60_spi.h:
 
 ../src/PHY/Peripheral/EthernetENC28J60/delay.h:

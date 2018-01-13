@@ -24,7 +24,6 @@ src/MID/main.o: ../src/MID/main.c \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx/stm32f4xx_spi.h \
  /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h \
- /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/EthernetENC28J60/delay.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd_logo.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd_font.h \
  /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/DriveLed/DriverLed.h \
@@ -84,8 +83,6 @@ src/MID/main.o: ../src/MID/main.c \
 /home/yama/eclipse-workspace/WorkStation/src/Configure/macros.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd1202.h:
-
-/home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/EthernetENC28J60/delay.h:
 
 /home/yama/eclipse-workspace/WorkStation/src/PHY/Peripheral/LCD1202/lcd_logo.h:
 

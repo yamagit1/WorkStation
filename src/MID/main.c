@@ -36,10 +36,10 @@ int main( void )
 	//	ENC28J60_writeBuffer(1 , &dataSend);
 	//
 	//	ENC28J60_readBuffer(1, &dataRecive);
-	ENC28J60_SPI1_Configuration();
-	ENC28J60_GPIO_Configuration();
+//	ENC28J60_SPI1_Configuration();
+//	ENC28J60_GPIO_Configuration();
 
-	enc28j60Init(NULL);
+	ENC28J60_init(NULL);
 
 //	LCD1202_clearScreen();
 	LCD1202_flush();
@@ -47,10 +47,11 @@ int main( void )
 	__UINT8 data = 55;
 	__UINT8  dataReceive = 11;
 
+
 	for(;;)
 	{
 		LCD1202_clearScreen();
-		dataReceive = enc28j60Read(ECON1);
+		dataReceive = ENC28J60_readControlRegister(ECON1);
 
 		LCD1202_printText("data receiver :", &gLcd1202CurrentOffset);
 		LCD1202_printNumberInterger(dataReceive, &gLcd1202CurrentOffset);

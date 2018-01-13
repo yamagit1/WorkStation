@@ -19,6 +19,7 @@ RM := rm -rf
 -include src/MID/Signal/subdir.mk
 -include src/MID/PostOffice/subdir.mk
 -include src/MID/Performance\ Management/subdir.mk
+-include src/MID/NetWork/subdir.mk
 -include src/MID/Monitor/subdir.mk
 -include src/MID/ConfigManagement/subdir.mk
 -include src/MID/subdir.mk
