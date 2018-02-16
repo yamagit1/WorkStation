@@ -22,7 +22,6 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F4xx_CONF_H
 #define __STM32F4xx_CONF_H
-
 /* Includes ------------------------------------------------------------------*/
 
 /* Uncomment the line below to enable peripheral header file inclusion */
@@ -83,7 +82,9 @@
 /* Exported functions ------------------------------------------------------- */
   void assert_failed(uint8_t* file, uint32_t line);
 #else
-  #define assert_param(expr) ((void)0)
+  #define assert_param(expr) do{if (!expr) {trace_printf("[__ERROR__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
+									trace_printf("\n");																			\
+  	  	  	  	  	  	  	  }}while(0);
 #endif /* USE_FULL_ASSERT */
 
 #endif /* __STM32F4xx_CONF_H */

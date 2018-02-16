@@ -10,7 +10,7 @@
 
 #include"header.h"
 
-extern __UINT8 gFontFullYama[];
+extern __uint8 gFontFullYama[];
 
 
 #endif /* __LCD_FONTRESOURCE_H__ */

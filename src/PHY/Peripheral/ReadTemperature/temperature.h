@@ -10,8 +10,8 @@
 
 #include "header.h"
 
-extern __INT16 gCurrentTemperatureC;
-extern __UINT16 gCurrentTemperatureF;
+extern __int16 gCurrentTemperatureC;
+extern __uint16 gCurrentTemperatureF;
 
 void TEM_initialize(void);
 void TEM_updateTemperature(void);

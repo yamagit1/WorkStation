@@ -14,7 +14,7 @@ void SIG_init()
 
 }
 
-void SIG_createSignal(TaskHandle_t pidTaskDes, __UINT32 key)
+void SIG_createSignal(TaskHandle_t pidTaskDes, __uint32 key)
 {
 	__S_Msg_signal msg;
 

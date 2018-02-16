@@ -19,7 +19,6 @@ C_DEPS :=
 SUBDIRS := \
 src/MID/ConfigManagement \
 src/MID/Monitor \
-src/MID/NetWork \
 src/MID/Performance\ Management \
 src/MID/PostOffice \
 src/MID/Signal \
@@ -32,4 +31,6 @@ src/PHY/Peripheral/EthernetENC28J60 \
 src/PHY/Peripheral/LCD1202 \
 src/PHY/Peripheral/LCD5110 \
 src/PHY/Peripheral/ReadTemperature \
+src/semihosting/log \
+src/semihosting/newlib \
 

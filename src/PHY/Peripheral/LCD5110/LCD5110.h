@@ -31,20 +31,20 @@
 #define HIGHT(X)		GPIO_SetBits(LCD_COM,(X))
 #define LOW(X)			GPIO_ResetBits(LCD_COM,(X))
 //=====================
-void LCDDelay(volatile __UINT32 time);
+void LCDDelay(volatile __uint32 time);
 
 void InitPIN(GPIO_InitTypeDef *x,uint32_t PIN);
 
 void LCDSetPin(void);
 
-void LCDSendData(__UINT8 data);
+void LCDSendData(__uint8 data);
 
 #define EW_DATA 	1
 #define	EW_COMMAND	0
 
-void LCDWrite(__INT32 ew,__UINT8 data);
+void LCDWrite(__int32 ew,__uint8 data);
 
 void LCDInit(void);
 
-void LCDBitmap(__UINT8 *my_array);
+void LCDBitmap(__uint8 *my_array);
 #endif

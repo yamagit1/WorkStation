@@ -19,11 +19,11 @@
 
 typedef struct
 {
-	__UINT32 msgID;
+	__uint32 msgID;
 	TaskHandle_t pidTaskSource;
 	TaskHandle_t pidTaskDestination;
-	__UINT32 timeSend;
-	__UINT32 keyMsg;
+	__uint32 timeSend;
+	__uint32 keyMsg;
 
 }__S_Msg_signal;
 
@@ -35,7 +35,7 @@ typedef struct
 
 extern xQueueHandle gPostOfficeAddress;
 extern __S_Task_Register gPostOfficeRegister[MAX_NUMBER_TASK_REGISTER];
-extern __UINT32 gNumberTaskRegister;
+extern __uint32 gNumberTaskRegister;
 
 __E_Bollen PO_sendBackMsg();
 void PO_init();

@@ -11,7 +11,7 @@ __E_Bollen gLedStatus[4];
 
 void DL_initialize()
 {
-	__ENTER__("DL_initialize");
+	__ENTER__
 
 	GPIO_InitTypeDef ledConfigure;
 
@@ -44,17 +44,15 @@ void DL_initialize()
 	RCC_AHB1PeriphClockCmd(RCC_LED_GREEN, ENABLE);
 	GPIO_Init(COM_LED_GREEN, &ledConfigure);
 
-	__LEAVE__();
+	__LEAVE__
 }
 
 /**
  *
  */
 
-void DL_turnOffLedRed(__UINT32 led)
+void DL_turnOffLedRed(__uint32 led)
 {
-	__ENTER__("DL_turnOffLedRed");
-
 	switch(led)
 	{
 	case LED_RED:
@@ -81,18 +79,14 @@ void DL_turnOffLedRed(__UINT32 led)
 		break;
 	}
 
-	__LEAVE__();
-
 }
 
 /**
  *
  */
 
-void DL_turnOnLedRed(__UINT32 led)
+void DL_turnOnLedRed(__uint32 led)
 {
-	__ENTER__("DL_turnOnLedRed");
-
 	switch(led)
 	{
 	case LED_RED:
@@ -118,5 +112,4 @@ void DL_turnOnLedRed(__UINT32 led)
 	default:
 		break;
 	}
-	__LEAVE__();
 }

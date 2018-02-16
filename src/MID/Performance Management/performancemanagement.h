@@ -18,10 +18,10 @@ extern TaskHandle_t gPIDTask[MAX_NUMBER_PID];
 
 typedef struct
 {
-	__UINT32 miliSection;
-	__UINT32 section;
-	__UINT32 miuter;
-	__UINT32 hour;
+	__uint32 miliSection;
+	__uint32 section;
+	__uint32 miuter;
+	__uint32 hour;
 }__S_TIME;
 
 extern __S_TIME gTimeCount;

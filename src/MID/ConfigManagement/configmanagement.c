@@ -41,8 +41,8 @@ void CM_taksTime(void *p_parameters)
 
 void CM_taskCountTime(void *p_parameters)
 {
-	__INT32 count = 0;
-	__UINT32 placeNumCount 	= LCD_1202_ADDRESS_LINE_TEXT_1;
+	__int32 count = 0;
+	__uint32 placeNumCount 	= LCD_1202_ADDRESS_LINE_TEXT_1;
 
 	for (;;)
 	{
@@ -70,7 +70,7 @@ void CM_taskUpdateTemperature(void *p_parameters)
 
 void CM_taskBinlkLed()
 {
-	__INT32 i = 0;
+	__int32 i = 0;
 
 	for (;;)
 	{

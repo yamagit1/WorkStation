@@ -1,6 +1,6 @@
 #include"LCD5110.h"
 
-void LCDDelay(volatile __UINT32 time){
+void LCDDelay(volatile __uint32 time){
 	while(time!=0){
 		time--;
 	}
@@ -35,8 +35,8 @@ void LCDSetPin(void){
 //	GPIO_SetBits(LCD_COM,LCD_LIG);		//tat den nen
 }
 
-void LCDSendData(__UINT8 data){
-	__INT32 i;
+void LCDSendData(__uint8 data){
+	__int32 i;
 
 	LOW(LCD_CLK);
 	HIGHT(LCD_DIN);
@@ -53,7 +53,7 @@ void LCDSendData(__UINT8 data){
 	}
 }
 
-void LCDWrite(__INT32 ew,__UINT8 data){
+void LCDWrite(__int32 ew,__uint8 data){
 	if(ew==EW_DATA){
 		HIGHT(LCD_DC);
 	}
@@ -91,8 +91,8 @@ void LCDInit(void){
    LCDWrite(EW_COMMAND, 0x0C);                    //	Set display control: normal mode(0C)
 }
 
-void LCDBitmap(__UINT8 *my_array){
-  __INT32 index;
+void LCDBitmap(__uint8 *my_array){
+  __int32 index;
   for (index = 0 ; index < (LCD_X * LCD_Y / 8) ; index++)
     LCDWrite(EW_DATA, my_array[index]);
 }

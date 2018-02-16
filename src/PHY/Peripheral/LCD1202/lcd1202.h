@@ -157,8 +157,8 @@
  * define cache ram fo LCD
  *==================================================================*/
 
-extern __UINT8 gLcd1202Ram[LCD_1202_BUFFER_SIZE];
-extern __UINT32 gLcd1202CurrentOffset;
+extern __uint8 gLcd1202Ram[LCD_1202_BUFFER_SIZE];
+extern __uint32 gLcd1202CurrentOffset;
 
 typedef enum
 {
@@ -170,27 +170,27 @@ typedef enum
 /*==================================================================
  * function
  *==================================================================*/
-void LCD1202_delay(volatile __UINT32 timeCount);
-void LCD1202_configurePin(GPIO_InitTypeDef *p_pinConfig, __UINT32 pinNumber);
-void LCD1202_hightPowerPin(__UINT32 pinSetup);
-void LCD1202_lowerPowerPin(__UINT32 pinSetup);
+void LCD1202_delay(volatile __uint32 timeCount);
+void LCD1202_configurePin(GPIO_InitTypeDef *p_pinConfig, __uint32 pinNumber);
+void LCD1202_hightPowerPin(__uint32 pinSetup);
+void LCD1202_lowerPowerPin(__uint32 pinSetup);
 void LCD1202_settingPinConnection(void);
-void LCD1202_transficData(__E_Lcd_Mode_Send modeSend, __UINT8 data);
-void LCD1202_sendData(__UINT8 data);
-void LCD1202_sendCommand(__UINT8 command);
+void LCD1202_transficData(__E_Lcd_Mode_Send modeSend, __uint8 data);
+void LCD1202_sendData(__uint8 data);
+void LCD1202_sendCommand(__uint8 command);
 void LCD1202_initialize(void);
 void LCD1202_clearScreen(void);
-void LCD1202_viewImageBitmap(__UINT8 *p_img);
+void LCD1202_viewImageBitmap(__uint8 *p_img);
 void LCD1202_flush(void);
-void LCD1202_turnOffLedBackground(__INT32 status);
+void LCD1202_turnOffLedBackground(__int32 status);
 
 
 /*==================================================================
  * Pint text, value in LCD
  *==================================================================*/
 
-void LCD1202_printText(const char *str, __UINT32 *p_position);
-void LCD1202_printNumberInterger(__INT64 numberPrint,__UINT32  *p_position);
+void LCD1202_printText(const char *str, __uint32 *p_position);
+void LCD1202_printNumberInterger(__int64 numberPrint,__uint32  *p_position);
 void LCD1202_endLine(void);
 
 

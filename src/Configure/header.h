@@ -69,6 +69,13 @@
 #define BUILD_TARGET_DEBUG			20000000
 
 /*==============================================================================
+ * buffer size
+ *============================================================================*/
+#define BUFF_SIZE_LOW		128
+#define BUFF_SIZE_MID		512
+#define BUFF_SIZE_HIG		1024
+
+/*==============================================================================
  * log level
  *============================================================================*/
 
@@ -85,14 +92,14 @@
 
 #if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
 
-typedef		signed		char		__INT8;
-typedef		unsigned	char		__UINT8;
-typedef		signed		short		__INT16;
-typedef		unsigned 	short		__UINT16;
-typedef		signed		int			__INT32;
-typedef 	unsigned	int			__UINT32;
-typedef		signed		long long	__INT64;
-typedef		unsigned  	long long	__UINT64;
+typedef		signed		char		__int8;
+typedef		unsigned	char		__uint8;
+typedef		signed		short		__int16;
+typedef		unsigned 	short		__uint16;
+typedef		signed		int			__int32;
+typedef 	unsigned	int			__uint32;
+typedef		signed		long long	__int64;
+typedef		unsigned  	long long	__uint64;
 
 #endif
 
@@ -115,9 +122,10 @@ typedef enum
  *============================================================================*/
 
 #include "FreeRTOS.h"
+#include"string.h"
+#include "stdio.h"
 
 #if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
-#include"string.h"
 #include"stm32f4xx.h"
 #include "stm32f4xx_gpio.h"
 #include "stm32f4xx_rcc.h"

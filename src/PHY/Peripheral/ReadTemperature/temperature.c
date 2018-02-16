@@ -8,8 +8,8 @@
 
 #include "temperature.h"
 
-__INT16 gCurrentTemperatureC;
-__UINT16 gCurrentTemperatureF;
+__int16 gCurrentTemperatureC;
+__uint16 gCurrentTemperatureF;
 
 
 /**
@@ -84,10 +84,10 @@ void TEM_updateTemperature(void)
 	TemperatureValue /= .0025; // Divide by slope 2.5mV
 	TemperatureValue += 25.0; // Add the 25°C
 
-	gCurrentTemperatureC = (__INT16)TemperatureValue;
+	gCurrentTemperatureC = (__int16)TemperatureValue;
 
 	TemperatureValue = ( TemperatureValue * 1.8) + 32;
 
-	gCurrentTemperatureF = (__UINT16)TemperatureValue;
+	gCurrentTemperatureF = (__uint16)TemperatureValue;
 
 }

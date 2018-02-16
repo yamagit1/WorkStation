@@ -14,8 +14,8 @@
 #include "lcd_fontresource.h"
 #include "string.h"
 
-__UINT8 gLcd1202Ram[LCD_1202_BUFFER_SIZE];
-__UINT32 gLcd1202CurrentOffset;
+__uint8 gLcd1202Ram[LCD_1202_BUFFER_SIZE];
+__uint32 gLcd1202CurrentOffset;
 
 #if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
 
@@ -23,7 +23,7 @@ __UINT32 gLcd1202CurrentOffset;
  *
  */
 
-void LCD1202_delay(volatile __UINT32 timeCount)
+void LCD1202_delay(volatile __uint32 timeCount)
 {
 
 	while (timeCount != 0)
@@ -37,7 +37,7 @@ void LCD1202_delay(volatile __UINT32 timeCount)
  *
  */
 
-void LCD1202_configurePin(GPIO_InitTypeDef *p_pinConfig, __UINT32 pinNumber)
+void LCD1202_configurePin(GPIO_InitTypeDef *p_pinConfig, __uint32 pinNumber)
 {
 
 	RCC_AHB1PeriphClockCmd(LCD_1202_RCC, ENABLE);
@@ -56,7 +56,7 @@ void LCD1202_configurePin(GPIO_InitTypeDef *p_pinConfig, __UINT32 pinNumber)
  *
  */
 
-void LCD1202_hightPowerPin(__UINT32 pinSetup)
+void LCD1202_hightPowerPin(__uint32 pinSetup)
 {
 	GPIO_SetBits(LCD_1202_COM, pinSetup);
 }
@@ -65,7 +65,7 @@ void LCD1202_hightPowerPin(__UINT32 pinSetup)
  *
  */
 
-void LCD1202_lowerPowerPin(__UINT32 pinSetup)
+void LCD1202_lowerPowerPin(__uint32 pinSetup)
 {
 	GPIO_ResetBits(LCD_1202_COM, pinSetup);
 }
@@ -100,10 +100,10 @@ void LCD1202_settingPinConnection(void)
  *
  */
 
-void LCD1202_transficData(__E_Lcd_Mode_Send modeSend, __UINT8 data)
+void LCD1202_transficData(__E_Lcd_Mode_Send modeSend, __uint8 data)
 {
 
-	__UINT32 i;
+	__uint32 i;
 
 	if (modeSend == EMS_DATA)
 	{
@@ -143,7 +143,7 @@ void LCD1202_transficData(__E_Lcd_Mode_Send modeSend, __UINT8 data)
  *
  */
 
-void LCD1202_sendData(__UINT8 data)
+void LCD1202_sendData(__uint8 data)
 {
 
 	LCD1202_lowerPowerPin(LCD_1202_CS);
@@ -156,7 +156,7 @@ void LCD1202_sendData(__UINT8 data)
  *
  */
 
-void LCD1202_sendCommand(__UINT8 command)
+void LCD1202_sendCommand(__uint8 command)
 {
 
 	LCD1202_lowerPowerPin(LCD_1202_CS);
@@ -171,6 +171,8 @@ void LCD1202_sendCommand(__UINT8 command)
 
 void LCD1202_initialize(void)
 {
+
+	__ENTER__
 
 	LCD1202_settingPinConnection();
 
@@ -202,7 +204,7 @@ void LCD1202_initialize(void)
 
 	LF_setFontIsUse(gFontFullYama);
 
-	__LEAVE__();
+	__LEAVE__
 }
 
 /**
@@ -212,7 +214,7 @@ void LCD1202_initialize(void)
 void LCD1202_clearScreen(void)
 {
 
-	__UINT32 i;
+	__uint32 i;
 
 	for (i = 0; i < LCD_1202_BUFFER_SIZE; i++)
 	{
@@ -234,10 +236,10 @@ void LCD1202_clearScreen(void)
  *
  */
 
-void LCD1202_viewImageBitmap(__UINT8 *p_img)
+void LCD1202_viewImageBitmap(__uint8 *p_img)
 {
 
-	__INT32 index;
+	__int32 index;
 
 	for (index = 0; index < LCD_1202_BUFFER_SIZE; index++)
 	{
@@ -254,7 +256,7 @@ void LCD1202_viewImageBitmap(__UINT8 *p_img)
 void LCD1202_flush(void)
 {
 
-	__INT32 index;
+	__int32 index;
 
 	LCD1202_sendCommand(LCD_1202_PAGE_ADDRESS_SET_0);
 	LCD1202_sendCommand(LCD_1202_COLUMN_ADDRESS_SET_UPPER_DEFAULT);
@@ -271,7 +273,7 @@ void LCD1202_flush(void)
  *
  */
 
-void LCD1202_turnOffLedBackground(__INT32 status)
+void LCD1202_turnOffLedBackground(__int32 status)
 {
 
 	if (status)
@@ -289,10 +291,10 @@ void LCD1202_turnOffLedBackground(__INT32 status)
  *
  */
 
-void LCD1202_printText(const char *str, __UINT32 *p_position)
+void LCD1202_printText(const char *str, __uint32 *p_position)
 {
-	__UINT32 length;
-	__UINT32 index;
+	__uint32 length;
+	__uint32 index;
 
 	length = strlen(str);
 
@@ -311,13 +313,13 @@ void LCD1202_printText(const char *str, __UINT32 *p_position)
  *
  */
 
-void LCD1202_printNumberInterger(__INT64 numberPrint,__UINT32  *p_position)
+void LCD1202_printNumberInterger(__int64 numberPrint,__uint32  *p_position)
 {
-	__UINT8 buffer[20];
-	__INT32 currentIndexBuffer = 0;
-	__INT32 mumberDigit = 0;
-	__INT64 mask = 1;
-	__INT32 i;
+	__uint8 buffer[20];
+	__int32 currentIndexBuffer = 0;
+	__int32 mumberDigit = 0;
+	__int64 mask = 1;
+	__int32 i;
 
 	if (numberPrint == 0)
 	{
@@ -343,7 +345,7 @@ void LCD1202_printNumberInterger(__INT64 numberPrint,__UINT32  *p_position)
 
 	while (mumberDigit > 0)
 	{
-		buffer[currentIndexBuffer] = (__UINT8)((numberPrint / mask) + 48);
+		buffer[currentIndexBuffer] = (__uint8)((numberPrint / mask) + 48);
 		currentIndexBuffer++;
 
 		numberPrint %= mask;
@@ -365,10 +367,10 @@ void LCD1202_printNumberInterger(__INT64 numberPrint,__UINT32  *p_position)
 
 void LCD1202_endLine(void)
 {
-	__INT32 currentLine;
-	__INT32 i;
+	__int32 currentLine;
+	__int32 i;
 
-	currentLine = (__INT32)(gLcd1202CurrentOffset / LCD_1202_SCREEN_WIDTH);
+	currentLine = (__int32)(gLcd1202CurrentOffset / LCD_1202_SCREEN_WIDTH);
 
 	if (currentLine == (LCD_1202_TOTAL_LINE_TEXT))
 	{

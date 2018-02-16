@@ -3,109 +3,108 @@
 
 #if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
 
-void ENC28J60_SPI1_Configuration(void)
+__uint8 ENC28J60_Send_And_Receive_Byte(__uint8 data)
 {
+	// while transfer complete
+	while(SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE)==RESET);
 
-	PRINT_LOG(0, LOG_PHY, "ENC28J60_SPI1_Configuration...enc28j60 config");
+	SPI_I2S_SendData(SPI2,data);
 
-	SPI_InitTypeDef   SPI_InitStructure;
+	// while receive complete
+	while(SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE)==RESET);
 
-	/* Enable the SPI periph */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
-
-	/* SPI configuration -------------------------------------------------------*/
-	// reset config to default
-	SPI_I2S_DeInit(SPI1);
-
-	// config SPI1
-	SPI_InitStructure.SPI_Direction 	= SPI_Direction_2Lines_FullDuplex;
-	SPI_InitStructure.SPI_DataSize 		= SPI_DataSize_8b;
-	SPI_InitStructure.SPI_CPOL	 		= SPI_CPOL_Low;
-	SPI_InitStructure.SPI_CPHA 			= SPI_CPHA_1Edge;
-	SPI_InitStructure.SPI_NSS 			= SPI_NSS_Soft;
-	SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_64;
-	SPI_InitStructure.SPI_FirstBit 		= SPI_FirstBit_MSB;
-	SPI_InitStructure.SPI_CRCPolynomial = 7;
-	SPI_InitStructure.SPI_Mode 			= SPI_Mode_Master;
-
-	SPI_Init(SPI1, &SPI_InitStructure);
-
-	/* Enable SPI1  */
-	SPI_Cmd(SPI1, ENABLE);
-
-	PRINT_LOG(0, LOG_PHY, "done...\n");
+	return SPI_I2S_ReceiveData(SPI2);
 }
 
-void ENC28J60_GPIO_Configuration(void)
+
+void ENC28J60_GPIO_Config(void)
 {
-	PRINT_LOG(0, LOG_PHY, "ENC28J60_GPIO_Configuration...spi pin config for enc28j60");
+	__ENTER__
 
-	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitTypeDef GPIO_InitStruct;
 
-	/* Enable SCK, MOSI and MISO GPIO clocks */
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	Console_Log_Print("Enable RCC for COM B ");
 
-	/* Enable CS  GPIO clock */
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB , ENABLE);
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC , ENABLE);
+//	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA , ENABLE);
 
-	// config mode AF with SPI 1
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource5, GPIO_AF_SPI1);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource6, GPIO_AF_SPI1);
-	GPIO_PinAFConfig(GPIOA, GPIO_PinSource7, GPIO_AF_SPI1);
+	/* configure pins used by SPI1
+	 * PB13 = SCK
+	 * PB14 = MISO
+	 * PB15 = MOSI
+	 */
+	Console_Log_Print("Configure pins used by SPI2 ");
+	Console_Log_Print("\t PB13 = SCK \t PB14 = MISO \t PB15 = MOSI ");
 
-	// setup pin
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_25MHz;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14|GPIO_Pin_15;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_UP;
 
-	/* SPI SCK pin configuration */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-	/* SPI  MOSI pin configuration */
-	GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_7;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	// connect SPI1 pins to SPI alternate function
+	Console_Log_Print("\t Connect SPI1 pins to SPI alternate function ");
 
-	/* SPI MISO pin configuration */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource13 , GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource14, GPIO_AF_SPI2);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource15 , GPIO_AF_SPI2);
 
-	/* Configure GPIO PIN for Chip select */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
+	// SS
+	Console_Log_Print("\t PB12 = CS");
 
-	/* Deselect : Chip Select high */
-	GPIO_SetBits(GPIOA, GPIO_Pin_2);
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_12;
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
 
-	PRINT_LOG(0, LOG_PHY, "done...\n");
+	GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+	__LEAVE__
 }
 
-__UINT8 ENC28J60_sendAndReceiveByte(__UINT8 dt)
+
+void ENC28J60_SPI_Config(void)
 {
-	// while tranmistion complie
-	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
+	__ENTER__
 
-	SPI_I2S_SendData(SPI1, dt);
+	SPI_InitTypeDef SPI_InitStruct;
 
-	// while receive complie
-	while(SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
+	Console_Log_Print("Enable RCC for SPI 2 ");
 
-	return SPI_I2S_ReceiveData(SPI1);
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
+
+	Console_Log_Print("Configure module SPI2 ");
+
+	SPI_InitStruct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;
+	SPI_InitStruct.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
+	SPI_InitStruct.SPI_Mode = SPI_Mode_Master;
+	SPI_InitStruct.SPI_DataSize = SPI_DataSize_8b;
+	SPI_InitStruct.SPI_CPOL = SPI_CPOL_Low;
+	SPI_InitStruct.SPI_CPHA = SPI_CPHA_1Edge;
+	SPI_InitStruct.SPI_NSS = SPI_NSS_Soft;
+	SPI_InitStruct.SPI_FirstBit = SPI_FirstBit_MSB;
+	SPI_InitStruct.SPI_CRCPolynomial = 7;
+
+	SPI_Init(SPI2, &SPI_InitStruct);
+
+	Console_Log_Print("Enable module SPI2 ");
+
+	SPI_Cmd(SPI2, ENABLE);
+
+	__LEAVE__
 }
 
-void ENC28J60_SpiInit(void)
+
+void ENC28J60_SPI_Init(void)
 {
-	PRINT_LOG(0, LOG_PHY, "ENC28J60_SpiInit...");
+	__ENTER__
 
-	ENC28J60_SPI1_Configuration();
-	ENC28J60_GPIO_Configuration();
+	ENC28J60_GPIO_Config();
+	ENC28J60_SPI_Config();
 
-	PRINT_LOG(0, LOG_PHY, "done...\n");
+	__LEAVE__
 }
-
 #endif

@@ -164,11 +164,13 @@ SECTIONS
 		
 	.heap (COPY):
 	{
+		_Heap_Begin = .;
 		__end__ = .;
 		_end = __end__;
 		end = __end__;
 		*(.heap*)
 		__HeapLimit = .;
+		_Heap_Limit = .;
 	} > SRAM 
 	
 /*==================================================================

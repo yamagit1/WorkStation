@@ -51,7 +51,7 @@ extern __E_Bollen gLedStatus[4];
  *============================================================================*/
 
 void DL_initialize();
-void DL_turnOnLedRed(__UINT32 led);
-void DL_turnOffLedRed(__UINT32 led);
+void DL_turnOnLedRed(__uint32 led);
+void DL_turnOffLedRed(__uint32 led);
 
 #endif /* SRC_PHY_PERIPHERAL_DRIVELED_DRIVERLED_H_ */

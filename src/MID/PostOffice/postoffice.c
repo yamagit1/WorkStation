@@ -11,12 +11,12 @@
 
 xQueueHandle gPostOfficeAddress;
 __S_Task_Register gPostOfficeRegister[MAX_NUMBER_TASK_REGISTER];
-__UINT32 gNumberTaskRegister;
+__uint32 gNumberTaskRegister;
 
 __E_Bollen PO_sendBackMsg()
 {
 	__S_Msg_signal msgReceived;
-	__UINT32 i;
+	__uint32 i;
 
 	if (xQueuePeek(gPostOfficeAddress, &msgReceived, MAX_DELAY_RECEIVER_MSG))
 	{

@@ -14,19 +14,19 @@
 
 __S_Font_Header gCurrentFont;
 
-void LF_setFontIsUse(__UINT8 *p_fontSwith)
+void LF_setFontIsUse(__uint8 *p_fontSwith)
 {
-	gCurrentFont.charWidth = (__UINT32) p_fontSwith[0];
-	gCurrentFont.charHight = (__UINT32) p_fontSwith[1];
-	gCurrentFont.fontIsFull= (__UINT16) p_fontSwith[2];
+	gCurrentFont.charWidth = (__uint32) p_fontSwith[0];
+	gCurrentFont.charHight = (__uint32) p_fontSwith[1];
+	gCurrentFont.fontIsFull= (__uint16) p_fontSwith[2];
 	gCurrentFont.Resource  = &p_fontSwith[3];
 }
 
 
-void LF_printCharToLcdRam(__UINT8 ch, __UINT32 *p_position)
+void LF_printCharToLcdRam(__uint8 ch, __uint32 *p_position)
 {
-	__INT32 i;
-	__INT32 charIndexInFont;
+	__int32 i;
+	__int32 charIndexInFont;
 
 	charIndexInFont = 0;
 
@@ -34,7 +34,7 @@ void LF_printCharToLcdRam(__UINT8 ch, __UINT32 *p_position)
 	{
 		if (' ' <= ch && ch <= '~')
 		{
-			charIndexInFont = (__UINT32)(ch - ' ');
+			charIndexInFont = (__uint32)(ch - ' ');
 		}
 
 	}
@@ -42,15 +42,15 @@ void LF_printCharToLcdRam(__UINT8 ch, __UINT32 *p_position)
 	{
 		if ('0' <= ch && ch <= '9')
 		{
-			charIndexInFont = (__UINT32)(ch - '0');
+			charIndexInFont = (__uint32)(ch - '0');
 		}
 		else if ('A' <= ch && ch <= 'Z')
 		{
-			charIndexInFont = (__UINT32)(ch - 'A');
+			charIndexInFont = (__uint32)(ch - 'A');
 		}
 		else if ('a' <= ch && ch <= 'z')
 		{
-			charIndexInFont = (__UINT32)(ch - 'a');
+			charIndexInFont = (__uint32)(ch - 'a');
 		}
 	}
 
