@@ -150,9 +150,9 @@ typedef enum
 //#include "stm32f4xx_rng.h"
 //#include "stm32f4xx_rtc.h"
 //#include "stm32f4xx_sdio.h"
-//#include "stm32f4xx_usart.h"
+#include "stm32f4xx_usart.h"
 //#include "stm32f4xx_wwdg.h"
-//#include "misc.h"
+#include "misc.h"
 #endif
 
 #include<macros.h>

@@ -11,7 +11,7 @@ __E_Bollen gLedStatus[4];
 
 void DL_initialize()
 {
-	__ENTER__
+//	__ENTER__
 
 	GPIO_InitTypeDef ledConfigure;
 
@@ -44,7 +44,7 @@ void DL_initialize()
 	RCC_AHB1PeriphClockCmd(RCC_LED_GREEN, ENABLE);
 	GPIO_Init(COM_LED_GREEN, &ledConfigure);
 
-	__LEAVE__
+//	__LEAVE__
 }
 
 /**

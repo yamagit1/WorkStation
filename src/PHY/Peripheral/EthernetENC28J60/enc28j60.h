@@ -409,7 +409,7 @@ void enc28j60_write_buffer(__uint8 *buf, __uint16 len);
 __uint16 enc28j60_read_phy(__uint8 addr);
 void enc28j60_write_phy(__uint8 adr, __uint16 data);
 void enc28j60_init(__uint8 *macadr);
-void enc28j60_send_packet(__uint8 *data, __uint16 len);
-__uint16 enc28j60_recv_packet(__uint8 *buf, __uint16 buflen);
+void enc28j60_packetSend(__uint8 *data, __uint16 len);
+__uint16 enc28j60_packetReceive(__uint8 *buf, __uint16 buflen);
 
 #endif // __ENC28J60_H__

@@ -21,12 +21,10 @@
 
 #define PRINT_LOG(tofile, lvLog, content) do{} while(0)
 
-#define __ENTER__	do{	trace_printf("[__ENTER__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
-						trace_printf("\n");																			\
+#define __ENTER__	do{	Console_Print("[__ENTER__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
 					}while(0);
 
-#define __LEAVE__	do{	trace_printf("[__LEAVE__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
-						trace_printf("\n");																			\
+#define __LEAVE__	do{	Console_Print("[__LEAVE__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
 					}while(0);
 
 #else
@@ -35,5 +33,7 @@
 #define __LEAVE__			do{}while(0);
 
 #endif
+
+//#define 	HAL_UART_Transmit(&huart1,(uint8_t*)str1,strlen(str1),0x1000); 	Console_Log_Print(str1);
 
 #endif

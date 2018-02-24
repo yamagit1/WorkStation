@@ -216,6 +216,7 @@ void enc28j60_init(__uint8 *macadr)
 
 	// Setup MAC
 	Console_Log_Print("Setup MAC");
+	Console_Log_Print("MAC address : %d", macadr);
 	enc28j60_wcr(MACON1, MACON1_TXPAUS| // Enable flow control
 			MACON1_RXPAUS|MACON1_MARXEN); // Enable MAC Rx
 	enc28j60_wcr(MACON2, 0); // Clear reset
@@ -247,7 +248,7 @@ void enc28j60_init(__uint8 *macadr)
 	__LEAVE__
 }
 
-void enc28j60_send_packet(__uint8 *data, __uint16 len)
+void enc28j60_packetSend(__uint8 *data, __uint16 len)
 {
 	while(enc28j60_rcr(ECON1) & ECON1_TXRTS)
 	{
@@ -270,7 +271,7 @@ void enc28j60_send_packet(__uint8 *data, __uint16 len)
 	enc28j60_bfs(ECON1, ECON1_TXRTS); // Request packet send
 }
 
-__uint16 enc28j60_recv_packet(__uint8 *buf, __uint16 buflen)
+__uint16 enc28j60_packetReceive(__uint8 *buf, __uint16 buflen)
 {
 	__uint16 len = 0, rxlen, status, temp;
 
