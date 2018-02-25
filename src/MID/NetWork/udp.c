@@ -70,8 +70,7 @@ uint8_t udp_read(enc28j60_frame_ptr *frame, uint16_t len)
 	Console_Log(str1);
 	sprintf(str1,"%u-%u\r\n", be16toword(udp_pkt->port_src),be16toword(udp_pkt->port_dst));
 	Console_Log(str1);
-	Console_Log(udp_pkt->data);
-	Console_Log("\r\n");
+	Console_Log_Print(udp_pkt->data);
 	udp_reply(frame,len);
 	return res;
 }

@@ -100,7 +100,11 @@ void USART1_IRQHandler(void){
 		}
 	}
 }
-
+void Console_put_char(const char *ch)
+{
+	while( !(USART1->SR & 0x00000040) );
+	USART_SendData(USART1, *ch);
+}
 void Console_Trace(volatile char *s)
 {
 	while(*s){

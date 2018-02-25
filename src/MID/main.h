@@ -38,4 +38,15 @@
 #define MAC_ADDR4   0
 #define MAC_ADDR5   1
 
+#include"header.h"
+#include "DriverLed.h"
+#include "ConsoleLog.h"
+#include "enc28j60.h"
+#include "lcd1202.h"
+#include "net.h"
+#include "configmanagement.h"
+#include "performancemanagement.h"
+#include "monitor.h"
+#include "temperature.h"
+#include "task.h"
 #endif

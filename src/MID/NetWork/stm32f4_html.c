@@ -1,0 +1,9 @@
+
+#include "stm32f4_html.h"
+
+__uint8 gBufferWebsite[MAX_SIZE_WEB];
+const char hello[]={"<html><body><h1>HELLO WORLD !!</h1></body></html>"};
+const char stm32f4_html[]= {
+"<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>Đại Học Công Nghiệp Hà Nội</title></head><body align=\"center\"><h1>Thực tập tốt nghiệp</h1><h2>KTPM4 - K9 - HAUI</h2><div align=\"left\"><hr><hr><h4>Đề tài : Quản lý chia sẻ bộ nhớ phân tán cho các thiết bị IoT</h4></div><div align=\"left\"><hr><hr><h4>Sinh viên : Hoàng Văn Nam</h4><h4>Mã sinh viên : 0941360293</h4><h4>Lớp : KTPM4 - K9</h4></div><div align=\"center\"><hr><hr><h1>System infor</h1><h1>STM32F407VG</h1><h5>(Kit STM32F4-Discovery)</h5><div align=\"left\"><h3>Led Status</h3><table border=\"1\" cellspacing=\"0\" cellpadding =\"0\" width = \"50%\"><tr><th>led</th><th>status</th></tr><tr><td>LED_RED</td><td>%s</td></tr><tr><td>LED_BLUE</td><td>%s</td></tr><tr><td>LED_YELLOW</td><td>%s</td></tr><tr><td>LED_GREEN</td><td>%s</td></tr><tr></table></div><div align=\"left\"><h3>List process</h3><table border=\"1\" cellspacing=\"0\" cellpadding =\"0\" width = \"100%\"><tr><th>PID</th><th>NAME</th><th>STATUS</th></tr>    %s%s%s%s%s </div><div align=\"left\"><h3>Temple</h3><table border=\"1\" cellspacing=\"0\" cellpadding =\"0\" width = \"100%\"><tr><th>oC</th><th>oF</th></tr><tr><td>%d</td><td>%d</td></tr></table></div><div align=\"left\"><h3>Memory status</h3><table border=\"1\" cellspacing=\"0\" cellpadding =\"0\" width = \"100%\"><tr><th>memory</th><th>use</th><th>free</th><th>total</th></tr><tr><td>RAM</td><td>15</td><td>120</td><td>135</td></tr><tr><td>FLASH</td><td>none</td><td>10002</td><td>1024</td></tr><tr><td>FLASH_SECTION 1</td><td>64</td><td>0</td><td>64</td></tr><tr><td>FLASH_SECTION 1</td><td>64</td><td>0</td><td>64</td></tr><tr><td>FLASH_SECTION 1</td><td>64</td><td>0</td><td>64</td></tr></table></div></div></body></html>"
+
+};

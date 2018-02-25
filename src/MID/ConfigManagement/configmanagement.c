@@ -12,6 +12,7 @@
 #include "temperature.h"
 #include "DriverLed.h"
 #include "performancemanagement.h"
+#include "net.h"
 
 void CM_taskMonitorHandler(void *p_parameters)
 {
@@ -70,11 +71,11 @@ void CM_taskUpdateTemperature(void *p_parameters)
 
 void CM_taskBinlkLed()
 {
-	__int32 i = 0;
+	__int32 ledTurnOn = 0;
 
 	for (;;)
 	{
-		switch(i)
+		switch(ledTurnOn)
 		{
 		case 0:
 			DL_turnOnLedRed(LED_RED);
@@ -97,15 +98,15 @@ void CM_taskBinlkLed()
 			break;
 
 		default:
-			i = 0;
+			ledTurnOn = 0;
 			break;
 		}
 
-		i++;
+		ledTurnOn++;
 
-		if (i > 3)
+		if (ledTurnOn > 3)
 		{
-			i = 0;
+			ledTurnOn = 0;
 		}
 
 		vTaskDelay(pdMS_TO_TICKS(120));
@@ -113,3 +114,14 @@ void CM_taskBinlkLed()
 
 	vTaskDelete(NULL);
 }
+
+void CM_taskNetwork(void *p_parameters)
+{
+	for (;;)
+		{
+			net_poll();
+		}
+
+		vTaskDelete(NULL);
+}
+

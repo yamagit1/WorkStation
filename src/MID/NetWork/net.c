@@ -1,4 +1,5 @@
 #include "net.h"
+#include "network.h"
 //-----------------------------------------------
 //extern UART_HandleTypeDef huart1;
 //-----------------------------------------------
@@ -19,7 +20,7 @@ void net_ini(void)
 	usartprop.usart_buf[0]=0;
 	usartprop.usart_cnt=0;
 	usartprop.is_ip=0;
-//	HAL_UART_Transmit(&huart1,(uint8_t*)"123456\r\n",8,0x1000);
+	Console_Log("MAC : 1 2 3 4 5 6\r\n");
 	enc28j60_init(macaddr);
 	ntpprop.set=0;
 	ntpprop.ntp_cnt=0;
@@ -158,10 +159,8 @@ uint8_t icmp_request(uint8_t* ip_addr)
 	memcpy(ip_pkt->ipaddr_dst,ip_addr,4);
 	memcpy(ip_pkt->ipaddr_src,ipaddr,4);
 	ip_pkt->cs = checksum((void*)ip_pkt,sizeof(ip_pkt_ptr),0);
-	//�������� ��������� ������ Ethernet
-  memcpy(frame->addr_src,macaddr,6);
-  frame->type=ETH_IP;
-  enc28j60_packetSend((void*)frame,len + sizeof(enc28j60_frame_ptr));	
+	//�������� ����� Ethernet
+	eth_send(frame,ETH_IP,len);
   return res;
 }
 //--------------------------------------------------
@@ -234,16 +233,17 @@ void eth_read(enc28j60_frame_ptr *frame, uint16_t len)
 		}
 		else if(frame->type==ETH_IP)
 		{
+			Console_Log_Print("prepare web for send");
+			HTML_prepare_web();
 			ip_read(frame,len-sizeof(ip_pkt_ptr));
 		}
 		else
 		{
-			sprintf(str1,"%02X:%02X:%02X:%02X:%02X:%02X-%02X:%02X:%02X:%02X:%02X:%02X; %d; %04X",
+			sprintf(str1,"%02X:%02X:%02X:%02X:%02X:%02X-%02X:%02X:%02X:%02X:%02X:%02X; %d; %04X\r\n",
 			frame->addr_src[0],frame->addr_src[1],frame->addr_src[2],frame->addr_src[3],frame->addr_src[4],frame->addr_src[5],
 			frame->addr_dest[0],frame->addr_dest[1],frame->addr_dest[2],frame->addr_dest[3],frame->addr_dest[4],frame->addr_dest[5],
 			len, be16toword(frame->type));
 			Console_Log(str1);
-			Console_Log("\r\n");
 		}		
 	}
 }

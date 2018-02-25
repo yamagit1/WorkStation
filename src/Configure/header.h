@@ -155,6 +155,7 @@ typedef enum
 #include "misc.h"
 #endif
 
+#include "lcd1202.h"
 #include<macros.h>
 
 #endif

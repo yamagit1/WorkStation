@@ -18,5 +18,6 @@ void Console_Trace(volatile char *s);
 void Console_Print(const char* format, ...);
 void Console_Log_Print(const char* format, ...);
 void Console_Log(const char* format, ...);
+void Console_put_char(const char *ch);
 
 #endif /* __CONSOLELOG_H_ */

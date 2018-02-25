@@ -45,12 +45,14 @@ SECTIONS
 {
 	.text :
 	{
+		_flash_s = .;
 /*==================================================================
  * Section .isr_vector define in startup_stm32f4xx.c
  * define interrupt handle
  *==================================================================*/
 		KEEP(*(.isr_vector))
 		*(.text*)
+		_flash_e = .;
 		
 		KEEP(*(.init))
 		KEEP(*(.fini))

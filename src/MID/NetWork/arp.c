@@ -123,10 +123,8 @@ uint8_t arp_request(uint8_t *ip_addr)
 	memcpy(msg->ipaddr_src,ipaddr,4);	
 	memcpy(msg->macaddr_dst,macnull,6);
 	memcpy(msg->ipaddr_dst,ip,4);
-	memcpy(frame->addr_dest,macbroadcast,6);
-	memcpy(frame->addr_src,macaddr,6);
-	frame->type = ETH_ARP;
-	enc28j60_packetSend((void*)frame,sizeof(arp_msg_ptr) + sizeof(enc28j60_frame_ptr));
+	//�������� ����� Ethernet
+	eth_send(frame,ETH_ARP,sizeof(arp_msg_ptr));
 	return 1;
 }
 //--------------------------------------------------

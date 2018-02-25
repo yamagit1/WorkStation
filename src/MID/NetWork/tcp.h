@@ -24,13 +24,18 @@ typedef struct tcp_pkt {
 } tcp_pkt_ptr;
 //--------------------------------------------------
 typedef struct tcp_prop {
+	uint8_t macaddr_dst[6];//MAC-����� ����������
+  uint8_t ipaddr_dst[6];//IP-����� ����������
   volatile uint16_t port_dst;//���� ����������
   volatile uint32_t seq_num;//���������� ����� �����
+	volatile uint32_t seq_num_tmp;//���������� ����� ����� ���������
   volatile uint32_t ack_num;//����� �������������
   volatile uint32_t data_stat;//������ �������� ������
   volatile uint32_t data_size;//������ ������ ��� ��������
   volatile uint16_t last_data_part_size;//������ ��������� ����� ������ ��� ��������
-  volatile uint16_t cnt_data_part;//���������� ���������� ������ ������ ��� ��������
+	volatile uint16_t cnt_data_part;//����� ���������� ������ ������ ��� ��������
+  volatile uint16_t cnt_rem_data_part;//���������� ���������� ������ ������ ��� ��������
+	volatile uint8_t http_doc;//������� ��������� ��� ��������
 } tcp_prop_ptr;
 //-------------------------------------------------- 
 //����� TCP
@@ -55,6 +60,10 @@ typedef struct tcp_prop {
 #define DATA_MIDDLE 3 //������� ������� �����
 #define DATA_LAST 4 //������� ��������� �����
 #define DATA_END 5 //��������� ���������� ����� �������� ������
+//--------------------------------------------------
+//�������� ���������� HTTP
+#define INDEX_HTML 0
+#define E404_HTML 1
 //--------------------------------------------------
 uint8_t tcp_read(enc28j60_frame_ptr *frame, uint16_t len);
 //--------------------------------------------------

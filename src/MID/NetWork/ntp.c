@@ -4,7 +4,7 @@
 //-----------------------------------------------
 extern char str1[60];
 extern uint8_t net_buf[ENC28J60_MAXFRAME];
-extern uint8_t macaddr[6];
+//extern uint8_t macaddr[6];
 extern uint8_t ipaddr[4];
 ntp_prop_ptr ntpprop;
 //--------------------------------------------------
@@ -61,11 +61,9 @@ uint8_t ntp_request(uint8_t *ip_addr, uint16_t port)
 	memcpy(ip_pkt->ipaddr_dst,ip_addr,4);
 	memcpy(ip_pkt->ipaddr_src,ipaddr,4);
 	ip_pkt->cs = checksum((void*)ip_pkt,sizeof(ip_pkt_ptr),0);
-  //�������� ��������� ������ Ethernet
-  memcpy(frame->addr_src,macaddr,6);
+	//�������� ����� Ethernet
 	memcpy(frame->addr_dest,ntpprop.macaddr_dst,6);
-  frame->type=ETH_IP;
-  enc28j60_packetSend((void*)frame,len + sizeof(enc28j60_frame_ptr));
+	eth_send(frame,ETH_IP,len);
   return res;
 }
 //--------------------------------------------------
