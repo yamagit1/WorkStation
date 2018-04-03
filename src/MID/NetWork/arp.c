@@ -33,17 +33,17 @@ uint8_t arp_read(enc28j60_frame_ptr *frame, uint16_t len)
 					sprintf(str1,"\r\nreply\r\nmac_src %02X:%02X:%02X:%02X:%02X:%02X\r\n",
 					msg->macaddr_src[0],msg->macaddr_src[1],msg->macaddr_src[2],
 					msg->macaddr_src[3],msg->macaddr_src[4],msg->macaddr_src[5]);
-					Console_Log(str1);
+					console_serial_print_log(str1);
 					sprintf(str1,"ip_src %d.%d.%d.%d\r\n",
 					msg->ipaddr_src[0],msg->ipaddr_src[1],msg->ipaddr_src[2],msg->ipaddr_src[3]);
-					Console_Log(str1);
+					console_serial_print_log(str1);
 					sprintf(str1,"mac_dst %02X:%02X:%02X:%02X:%02X:%02X\r\n",
 					msg->macaddr_dst[0],msg->macaddr_dst[1],msg->macaddr_dst[2],
 					msg->macaddr_dst[3],msg->macaddr_dst[4],msg->macaddr_dst[5]);
-					Console_Log(str1);
+					console_serial_print_log(str1);
 					sprintf(str1,"ip_dst %d.%d.%d.%d\r\n",
 					msg->ipaddr_dst[0],msg->ipaddr_dst[1],msg->ipaddr_dst[2],msg->ipaddr_dst[3]);
-					Console_Log(str1);
+					console_serial_print_log(str1);
 					res=2;
 				} 
 			}
@@ -65,11 +65,11 @@ void arp_send(enc28j60_frame_ptr *frame)
 	sprintf(str1,"%02X:%02X:%02X:%02X:%02X:%02X(%d.%d.%d.%d)-",
     frame->addr_dest[0],frame->addr_dest[1],frame->addr_dest[2],frame->addr_dest[3],frame->addr_dest[4],frame->addr_dest[5],
     msg->ipaddr_dst[0],msg->ipaddr_dst[1],msg->ipaddr_dst[2],msg->ipaddr_dst[3]);
-  Console_Log(str1);
+  console_serial_print_log(str1);
   sprintf(str1,"%02X:%02X:%02X:%02X:%02X:%02X(%d.%d.%d.%d) arp request\r\n",
     frame->addr_src[0],frame->addr_src[1],frame->addr_src[2],frame->addr_src[3],frame->addr_src[4],frame->addr_src[5],
     msg->ipaddr_src[0],msg->ipaddr_src[1],msg->ipaddr_src[2],msg->ipaddr_src[3]);
-  Console_Log(str1);
+  console_serial_print_log(str1);
 }
 //-----------------------------------------------
 uint8_t arp_request(uint8_t *ip_addr)
@@ -103,7 +103,7 @@ uint8_t arp_request(uint8_t *ip_addr)
 				arp_rec[i].macaddr[0],arp_rec[i].macaddr[1],arp_rec[i].macaddr[2],
 				arp_rec[i].macaddr[3],arp_rec[i].macaddr[4],arp_rec[i].macaddr[5],
 				(unsigned long)arp_rec[i].sec);
-				Console_Log(str1);
+				console_serial_print_log(str1);
 			}
 			memcpy(frame->addr_dest,arp_rec[j].macaddr,6);
 			if((usartprop.is_ip==3)||(usartprop.is_ip==5)||(usartprop.is_ip==7))//������ �������� UDP-, ICMP- ��� NTP ������
@@ -144,7 +144,7 @@ void arp_table_fill(enc28j60_frame_ptr *frame)
       arp_rec[i].macaddr[0],arp_rec[i].macaddr[1],arp_rec[i].macaddr[2],
       arp_rec[i].macaddr[3],arp_rec[i].macaddr[4],arp_rec[i].macaddr[5],
       (unsigned long)arp_rec[i].sec);
-    Console_Log(str1);
+    console_serial_print_log(str1);
   } 
 }
 //--------------------------------------------------

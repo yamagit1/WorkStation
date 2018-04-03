@@ -3,6 +3,40 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
+C_SRCS += \
+../src/MID/NetWork/arp.c \
+../src/MID/NetWork/net.c \
+../src/MID/NetWork/netmork.c \
+../src/MID/NetWork/ntp.c \
+../src/MID/NetWork/stm32f4_html.c \
+../src/MID/NetWork/tcp.c \
+../src/MID/NetWork/udp.c 
+
+OBJS += \
+./src/MID/NetWork/arp.o \
+./src/MID/NetWork/net.o \
+./src/MID/NetWork/netmork.o \
+./src/MID/NetWork/ntp.o \
+./src/MID/NetWork/stm32f4_html.o \
+./src/MID/NetWork/tcp.o \
+./src/MID/NetWork/udp.o 
+
+C_DEPS += \
+./src/MID/NetWork/arp.d \
+./src/MID/NetWork/net.d \
+./src/MID/NetWork/netmork.d \
+./src/MID/NetWork/ntp.d \
+./src/MID/NetWork/stm32f4_html.d \
+./src/MID/NetWork/tcp.d \
+./src/MID/NetWork/udp.d 
+
 
 # Each subdirectory must supply rules for building sources it contributes
+src/MID/NetWork/%.o: ../src/MID/NetWork/%.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: Cross ARM GNU C Compiler'
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -I"/home/yama/Desktop/workspace/WorkStation/src" -I"/home/yama/Desktop/workspace/WorkStation/src/Configure" -I"/home/yama/Desktop/workspace/WorkStation/src/MID" -I"/home/yama/Desktop/workspace/WorkStation/src/MID/ConfigManagement" -I"/home/yama/Desktop/workspace/WorkStation/src/MID/Monitor" -I"/home/yama/Desktop/workspace/WorkStation/src/MID/NetWork" -I"/home/yama/Desktop/workspace/WorkStation/src/MID/Performance Management" -I"/home/yama/Desktop/workspace/WorkStation/src/MID/PostOffice" -I"/home/yama/Desktop/workspace/WorkStation/src/MID/Signal" -I"/home/yama/Desktop/workspace/WorkStation/src/OS" -I"/home/yama/Desktop/workspace/WorkStation/src/OS/FreeRTOS_kernel" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Lib" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Lib/cmsis_core" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Lib/cmsis_lib" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Lib/cmsis_lib/stm32f4xx" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/MCU" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/MCU/ARM" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/MCU/ARM/stm32f4xx" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Peripheral" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Peripheral/DriveLed" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Peripheral/EthernetENC28J60" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Peripheral/LCD1202" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Peripheral/LCD5110" -I"/home/yama/Desktop/workspace/WorkStation/src/PHY/Peripheral/ReadTemperature" -I"/home/yama/Desktop/workspace/WorkStation/src/semihosting" -I"/home/yama/Desktop/workspace/WorkStation/src/semihosting/console" -I"/home/yama/Desktop/workspace/WorkStation/src/semihosting/log" -I"/home/yama/Desktop/workspace/WorkStation/src/semihosting/newlib" -std=gnu11 -c -mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -std=gnu90 -O0 -ffunction-sections -fdata-sections -g -Wall -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -c -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 

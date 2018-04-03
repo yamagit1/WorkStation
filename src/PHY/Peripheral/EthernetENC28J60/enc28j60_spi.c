@@ -23,7 +23,7 @@ void ENC28J60_GPIO_Config(void)
 
 	GPIO_InitTypeDef GPIO_InitStruct;
 
-	Console_Log_Print("Enable RCC for COM B ");
+	console_serial_print_log("Enable RCC for COM B ");
 
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB , ENABLE);
 //	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC , ENABLE);
@@ -34,8 +34,8 @@ void ENC28J60_GPIO_Config(void)
 	 * PB14 = MISO
 	 * PB15 = MOSI
 	 */
-	Console_Log_Print("Configure pins used by SPI2 ");
-	Console_Log_Print("\t PB13 = SCK \t PB14 = MISO \t PB15 = MOSI ");
+	console_serial_print_log("Configure pins used by SPI2 ");
+	console_serial_print_log("\t PB13 = SCK \t PB14 = MISO \t PB15 = MOSI ");
 
 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_13 | GPIO_Pin_14|GPIO_Pin_15;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF;
@@ -46,14 +46,14 @@ void ENC28J60_GPIO_Config(void)
 	GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 	// connect SPI1 pins to SPI alternate function
-	Console_Log_Print("\t Connect SPI1 pins to SPI alternate function ");
+	console_serial_print_log("\t Connect SPI1 pins to SPI alternate function ");
 
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource13 , GPIO_AF_SPI2);
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource14, GPIO_AF_SPI2);
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource15 , GPIO_AF_SPI2);
 
 	// SS
-	Console_Log_Print("\t PB12 = CS");
+	console_serial_print_log("\t PB12 = CS");
 
 	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_12;
 	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_OUT;
@@ -72,11 +72,11 @@ void ENC28J60_SPI_Config(void)
 
 	SPI_InitTypeDef SPI_InitStruct;
 
-	Console_Log_Print("Enable RCC for SPI 2 ");
+	console_serial_print_log("Enable RCC for SPI 2 ");
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
 
-	Console_Log_Print("Configure module SPI2 ");
+	console_serial_print_log("Configure module SPI2 ");
 
 	SPI_InitStruct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;
 	SPI_InitStruct.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
@@ -90,7 +90,7 @@ void ENC28J60_SPI_Config(void)
 
 	SPI_Init(SPI2, &SPI_InitStruct);
 
-	Console_Log_Print("Enable module SPI2 ");
+	console_serial_print_log("Enable module SPI2 ");
 
 	SPI_Cmd(SPI2, ENABLE);
 

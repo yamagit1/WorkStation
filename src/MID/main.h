@@ -49,4 +49,5 @@
 #include "monitor.h"
 #include "temperature.h"
 #include "task.h"
+#include "console_serial_trace.h"
 #endif

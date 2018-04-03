@@ -12,36 +12,36 @@ __uint8 data[]={32, 33, 34, 35, 36, 37};
 
 int main( void )
 {
-	Console_log_init(115200);
-	Console_Log_Print("***************************************************************");
-	Console_Log_Print("*     ****   ****       ****       ****    ****  **********    *");
-	Console_Log_Print("*     ****   ****      ******      ****    ****  **********    *");
-	Console_Log_Print("*     ****   ****     ********     ****    ****     ****       *");
-	Console_Log_Print("*     ***********    ****  ****    ****    ****     ****       *");
-	Console_Log_Print("*     ***********   ************   ****    ****     ****       *");
-	Console_Log_Print("*     ***********  **************  ****    ****     ****       *");
-	Console_Log_Print("*     ****   ****  *****    *****  ************     ****       *");
-	Console_Log_Print("*     ****   ****  *****    *****  ************  **********    *");
-	Console_Log_Print("*     ****   ****  *****    *****    **********  **********    *");
-	Console_Log_Print("****************************************************************");
+	console_serial_init(115200);
+	console_serial_print_log("***************************************************************");
+	console_serial_print_log("*     ****   ****       ****       ****    ****  **********    *");
+	console_serial_print_log("*     ****   ****      ******      ****    ****  **********    *");
+	console_serial_print_log("*     ****   ****     ********     ****    ****     ****       *");
+	console_serial_print_log("*     ***********    ****  ****    ****    ****     ****       *");
+	console_serial_print_log("*     ***********   ************   ****    ****     ****       *");
+	console_serial_print_log("*     ***********  **************  ****    ****     ****       *");
+	console_serial_print_log("*     ****   ****  *****    *****  ************     ****       *");
+	console_serial_print_log("*     ****   ****  *****    *****  ************  **********    *");
+	console_serial_print_log("*     ****   ****  *****    *****    **********  **********    *");
+	console_serial_print_log("****************************************************************");
 
 	__ENTER__
 
-	Console_Log_Print("Initialize driver LED ");
+	console_serial_print_log("Initialize driver LED ");
 	DL_initialize();
 
-	Console_Log_Print("Initialize network");
+	console_serial_print_log("Initialize network");
 //	enc28j60_init(macaddr);
 	net_ini();
-	Console_Log_Print("Initialize monitor");
+	console_serial_print_log("Initialize monitor");
 	MNT_initialize();
 
-	Console_Log_Print("Initialize Temperature");
+	console_serial_print_log("Initialize Temperature");
 	TEM_initialize();
 
-	Console_Log_Print("***************************************************************");
-//	Console_Log_Print("%d",_flash_s - _sdata );
-	Console_Log_Print("***************************************************************");
+	console_serial_print_log("***************************************************************");
+//	console_serial_print_log("%d",_flash_s - _sdata );
+	console_serial_print_log("***************************************************************");
 
 	//
 	xTaskCreate(CM_taskBinlkLed, "BinlkLed", 1000, NULL, 2, &gPIDTask[0]);
