@@ -71,9 +71,11 @@
 /*==============================================================================
  * buffer size
  *============================================================================*/
-#define BUFF_SIZE_LOW		128
-#define BUFF_SIZE_MID		512
-#define BUFF_SIZE_HIG		1024
+#define UART_TIME_OUT 			10
+#define BUFF_SIZE_LOW 			64
+#define BUFF_SIZE_MEDIUM		256
+#define BUFF_SIZE_LARGE			512
+#define BUFF_SIZE_VERY_LARGE	1024
 
 /*==============================================================================
  * log level
@@ -124,6 +126,7 @@ typedef enum
 #include "FreeRTOS.h"
 #include"string.h"
 #include "stdio.h"
+#include "stdarg.h"
 
 #if CONFIG_FLATFORM == FLATFORM_STM32_F407VG
 #include"stm32f4xx.h"

@@ -21,11 +21,9 @@
 
 #define PRINT_LOG(tofile, lvLog, content) do{} while(0)
 
-#define __ENTER__	do{	Console_Print("[__ENTER__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
-					}while(0);
+#define __ENTER__	do{}while(0);
 
-#define __LEAVE__	do{	Console_Print("[__LEAVE__]: %s() ||  %5d || %s .", __FUNCTION__, __LINE__, __FILE__);				\
-					}while(0);
+#define __LEAVE__	do{}while(0);
 
 #else
 

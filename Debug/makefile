@@ -10,6 +10,7 @@ RM := rm -rf
 -include sources.mk
 -include src/semihosting/newlib/subdir.mk
 -include src/semihosting/log/subdir.mk
+-include src/semihosting/console/subdir.mk
 -include src/PHY/Peripheral/ReadTemperature/subdir.mk
 -include src/PHY/Peripheral/LCD5110/subdir.mk
 -include src/PHY/Peripheral/LCD1202/subdir.mk
@@ -21,6 +22,7 @@ RM := rm -rf
 -include src/MID/Signal/subdir.mk
 -include src/MID/PostOffice/subdir.mk
 -include src/MID/Performance\ Management/subdir.mk
+-include src/MID/NetWork/subdir.mk
 -include src/MID/Monitor/subdir.mk
 -include src/MID/ConfigManagement/subdir.mk
 -include src/MID/subdir.mk
@@ -56,7 +58,7 @@ all: WorkStation.elf secondary-outputs
 WorkStation.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM GNU C Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "/home/yama/Documents/Embedded/WorkStation-master/ldscripts/LinkScript_stm32f4xx.ld" -Xlinker --gc-sections -Wl,-Map,"WorkStation.map" -o "WorkStation.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "/home/yama/Desktop/workspace/WorkStation/ldscripts/LinkScript_stm32f4xx.ld" -Xlinker --gc-sections -Wl,-Map,"WorkStation.map" -o "WorkStation.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -16,12 +16,12 @@ uint8_t ntp_read(enc28j60_frame_ptr *frame, uint16_t len)
 	udp_pkt_ptr *udp_pkt = (void*)(ip_pkt->data);
 	ntp_pkt_ptr *ntp_pkt = (void*)(udp_pkt->data);	
 	sprintf(str1,"%lu\r\n", be32todword((unsigned long)ntp_pkt->tx_ts.sec));
-	Console_Log(str1);
+	console_serial_print_log(str1);
 	time_t rawtime = (time_t)(be32todword(ntp_pkt->tx_ts.sec)-2208988800+60UL*60*TIMEZONE);
 	timestruct = localtime(&rawtime);
 	sprintf(str1,"%02d.%02d.%04u %02d:%02d:%02d -%d-\r\n", timestruct->tm_mday,timestruct->tm_mon+1, //������ ��������� �� 0, � �� �� 1
 		timestruct->tm_year+1900,timestruct->tm_hour,timestruct->tm_min,timestruct->tm_sec,timestruct->tm_wday);
-	Console_Log(str1);
+	console_serial_print_log(str1);
   //������� ��� ����� � ��������
   ntpprop.set=0;
   ntpprop.ntp_cnt=0;

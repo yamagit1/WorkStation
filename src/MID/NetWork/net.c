@@ -20,7 +20,7 @@ void net_ini(void)
 	usartprop.usart_buf[0]=0;
 	usartprop.usart_cnt=0;
 	usartprop.is_ip=0;
-	Console_Log("MAC : 1 2 3 4 5 6\r\n");
+	console_serial_print_log("MAC : 1 2 3 4 5 6\r\n");
 	enc28j60_init(macaddr);
 	ntpprop.set=0;
 	ntpprop.ntp_cnt=0;
@@ -92,14 +92,14 @@ uint8_t icmp_read(enc28j60_frame_ptr *frame, uint16_t len)
 			sprintf(str1,"%d.%d.%d.%d-%d.%d.%d.%d icmp request\r\n",
 				ip_pkt->ipaddr_dst[0],ip_pkt->ipaddr_dst[1],ip_pkt->ipaddr_dst[2],ip_pkt->ipaddr_dst[3],
 				ip_pkt->ipaddr_src[0],ip_pkt->ipaddr_src[1],ip_pkt->ipaddr_src[2],ip_pkt->ipaddr_src[3]);
-			Console_Log(str1);
+			console_serial_print_log(str1);
 		}
 		else if (icmp_pkt->msg_tp==ICMP_REPLY)
 		{
 			sprintf(str1,"%d.%d.%d.%d-%d.%d.%d.%d icmp reply\r\n",
 			ip_pkt->ipaddr_src[0],ip_pkt->ipaddr_src[1],ip_pkt->ipaddr_src[2],ip_pkt->ipaddr_src[3],
 			ip_pkt->ipaddr_dst[0],ip_pkt->ipaddr_dst[1],ip_pkt->ipaddr_dst[2],ip_pkt->ipaddr_dst[3]);
-			Console_Log(str1);
+			console_serial_print_log(str1);
 		}
 	}
 	return res;
@@ -233,7 +233,7 @@ void eth_read(enc28j60_frame_ptr *frame, uint16_t len)
 		}
 		else if(frame->type==ETH_IP)
 		{
-			Console_Log_Print("prepare web for send");
+			console_serial_print_log("prepare web for send");
 			HTML_prepare_web();
 			ip_read(frame,len-sizeof(ip_pkt_ptr));
 		}
@@ -243,7 +243,7 @@ void eth_read(enc28j60_frame_ptr *frame, uint16_t len)
 			frame->addr_src[0],frame->addr_src[1],frame->addr_src[2],frame->addr_src[3],frame->addr_src[4],frame->addr_src[5],
 			frame->addr_dest[0],frame->addr_dest[1],frame->addr_dest[2],frame->addr_dest[3],frame->addr_dest[4],frame->addr_dest[5],
 			len, be16toword(frame->type));
-			Console_Log(str1);
+			console_serial_print_log(str1);
 		}		
 	}
 }
@@ -351,7 +351,7 @@ void UART1_RxCpltCallback(void)
 		usartprop.usart_buf[usartprop.usart_cnt] = b;
 		usartprop.usart_cnt++;
 	}
-	Console_Log_Print("HAL_UART_Receive_IT(&huart1, (uint8_t*)str,1");
+	console_serial_print_log_Print("HAL_UART_Receive_IT(&huart1, (uint8_t*)str,1");
 }
 //-----------------------------------------------
 void TIM_PeriodElapsedCallback(void)
@@ -366,7 +366,7 @@ void TIM_PeriodElapsedCallback(void)
 			ntpprop.ntp_timer = 5;
 			ntpprop.ntp_cnt--;
 			sprintf(str1,"ntp_cnt: %d\r\n",ntpprop.ntp_cnt);
-			Console_Log(str1);
+			console_serial_print_log(str1);
 			ntp_request(ntpprop.ip_dst,ntpprop.port_dst);
 		}
 		else if (ntpprop.ntp_cnt<=0)

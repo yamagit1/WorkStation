@@ -63,14 +63,14 @@ uint8_t udp_read(enc28j60_frame_ptr *frame, uint16_t len)
 		frame->addr_src[3],frame->addr_src[4],frame->addr_src[5],
 		frame->addr_dest[0],frame->addr_dest[1],frame->addr_dest[2],
 		frame->addr_dest[3],frame->addr_dest[4],frame->addr_dest[5],len);
-	Console_Log(str1);
+	console_serial_print_log(str1);
 	sprintf(str1,"%d.%d.%d.%d-%d.%d.%d.%d udp request\r\n",
 		ip_pkt->ipaddr_src[0],ip_pkt->ipaddr_src[1],ip_pkt->ipaddr_src[2],ip_pkt->ipaddr_src[3],
 		ip_pkt->ipaddr_dst[0],ip_pkt->ipaddr_dst[1],ip_pkt->ipaddr_dst[2],ip_pkt->ipaddr_dst[3]);
-	Console_Log(str1);
+	console_serial_print_log(str1);
 	sprintf(str1,"%u-%u\r\n", be16toword(udp_pkt->port_src),be16toword(udp_pkt->port_dst));
-	Console_Log(str1);
-	Console_Log_Print(udp_pkt->data);
+	console_serial_print_log(str1);
+	console_serial_print_log(udp_pkt->data);
 	udp_reply(frame,len);
 	return res;
 }

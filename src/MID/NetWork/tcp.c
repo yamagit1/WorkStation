@@ -363,15 +363,15 @@ uint8_t tcp_read(enc28j60_frame_ptr *frame, uint16_t len)
 	sprintf(str1,"%d.%d.%d.%d-%d.%d.%d.%d %d tcp\r\n",
 		ip_pkt->ipaddr_src[0],ip_pkt->ipaddr_src[1],ip_pkt->ipaddr_src[2],ip_pkt->ipaddr_src[3],
 		ip_pkt->ipaddr_dst[0],ip_pkt->ipaddr_dst[1],ip_pkt->ipaddr_dst[2],ip_pkt->ipaddr_dst[3], len_data);
-	Console_Log(str1);
+	console_serial_print_log(str1);
 	//���� ���� ������, �� ������� �� � ������������ ���������
 	if (len_data)
 	{
 		for (i=0;i<len_data;i++)
 		{
-			Console_put_char(tcp_pkt->data+i);
+			console_serial_print_log(tcp_pkt->data+i);
 		}
-		Console_Trace("\r\n");
+		console_serial_print_log("\r\n");
 		//���� ������� ���� �������������, �� ���������� ���� ������
 		if (tcp_pkt->fl&TCP_ACK)
 		{
@@ -406,7 +406,7 @@ uint8_t tcp_read(enc28j60_frame_ptr *frame, uint16_t len)
 				tcpprop.cnt_data_part = tcpprop.cnt_rem_data_part;
 				sprintf(str1,"data size:%lu; cnt data part:%u; last_data_part_size:%u\r\nport dst:%u\r\n",
 					(unsigned long)tcpprop.data_size, tcpprop.cnt_rem_data_part, tcpprop.last_data_part_size,tcpprop.port_dst);
-				Console_Log(str1);
+				console_serial_print_log(str1);
 				if (tcpprop.cnt_rem_data_part==1)
 				{
 					tcpprop.data_stat = DATA_ONE;
@@ -459,11 +459,11 @@ uint8_t tcp_read(enc28j60_frame_ptr *frame, uint16_t len)
 		}
 		else if (tcpprop.data_stat==DATA_LAST)
 		{
-			Console_Log("LAST\r\n");
+			console_serial_print_log("LAST\r\n");
 			tcpprop.data_stat=DATA_COMPLETED;
 			tcp_send_http_last(frame, tcpprop.ipaddr_dst, tcpprop.port_dst);
 		}
-		Console_Log("ACK\r\n");
+		console_serial_print_log("ACK\r\n");
 	}
   return res;
 }
