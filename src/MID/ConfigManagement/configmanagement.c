@@ -12,7 +12,6 @@
 #include "temperature.h"
 #include "DriverLed.h"
 #include "performancemanagement.h"
-#include "net.h"
 
 void CM_taskMonitorHandler(void *p_parameters)
 {
@@ -119,7 +118,7 @@ void CM_taskNetwork(void *p_parameters)
 {
 	for (;;)
 		{
-			net_poll();
+//			net_poll();
 		}
 
 		vTaskDelete(NULL);

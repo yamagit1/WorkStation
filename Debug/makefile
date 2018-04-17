@@ -56,7 +56,7 @@ all: WorkStation.elf secondary-outputs
 WorkStation.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM GNU C Linker'
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "/home/yama/Documents/Embedded/WorkStation-master/ldscripts/LinkScript_stm32f4xx.ld" -Xlinker --gc-sections -Wl,-Map,"WorkStation.map" -o "WorkStation.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "/home/yama/Desktop/workspace/WorkStation/ldscripts/LinkScript_stm32f4xx.ld" -Xlinker --gc-sections -Wl,-Map,"WorkStation.map" -o "WorkStation.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

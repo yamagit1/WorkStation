@@ -43,7 +43,6 @@
 #include "ConsoleLog.h"
 #include "enc28j60.h"
 #include "lcd1202.h"
-#include "net.h"
 #include "configmanagement.h"
 #include "performancemanagement.h"
 #include "monitor.h"

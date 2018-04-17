@@ -1,6 +1,5 @@
 
 #include "main.h"
-#include "stm32f4_html.h"
 __uint8 macaddr[]={0x01,0x02,0x03,0x04,0x05,0x06};
 
 __uint8 macdestaddr[]={0x8c, 0x70, 0x5a, 0xb5, 0xbc, 0x2c};
@@ -32,7 +31,6 @@ int main( void )
 
 	Console_Log_Print("Initialize network");
 //	enc28j60_init(macaddr);
-	net_ini();
 	Console_Log_Print("Initialize monitor");
 	MNT_initialize();
 
